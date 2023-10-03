@@ -1,0 +1,12 @@
+{
+
+  "cakes":[
+    {
+      "id": 1,
+      "name":"Red Velvet",
+      "cost": 125,
+      "imageUrl":"https://www.foodnetwork.com/content/dam/images/food/fullset/2009/4/5/1/IG1C17_30946_s4x3.jpg"
+    }
+  ]
+  
+}
