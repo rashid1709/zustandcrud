@@ -1,23 +1,64 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import { Container } from 'react-bootstrap';
+import { Button, Container } from 'react-bootstrap';
 import { useCakeStore } from '../store/cakeStore';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import DeleteConfirmation from './DeleteConfirmation';
+
+
 
 function AllCakes() {
   const allCake = useCakeStore((state)=>state.cakeData)
-  const getCakesAPI = useCakeStore((state)=>state.getCakesAPI)
+  const getCakesAPI = useCakeStore((state)=>state.getCakesAPI);
+  const navigate = useNavigate();
+
+  const [showModal,setShowModal] = useState(false);
+  const [itemIdToDelete,setItemIdToDelete] = useState(0);
+
+  const deleteCakeApiCall= useCakeStore((state)=>state.deleteCakeAPI);
 
   useEffect(()=>{
-    getCakesAPI();
+    if(allCake.length===0){
+      getCakesAPI();
+    }
+   
   },[])
+
+  const openConfirmationModalHandler = (id) => {
+    setItemIdToDelete(id);
+    setShowModal(true);
+  }
+
+  const closeConfirmationModalHandler = () => {
+    setItemIdToDelete(0);
+    setShowModal(false);
+  }
+
+  const deleteConfirmHandler = async () => {
+    await deleteCakeApiCall(itemIdToDelete);
+    setItemIdToDelete(0);
+    setShowModal(false);
+  }
    
   return (
     <>
-    <Container className='mt-3'>
+    <DeleteConfirmation 
+    showModal={showModal} 
+    title="Delete Confirmation" 
+    body="Are you sure to delte this item?"
+    closeConfirmationModalHandler={closeConfirmationModalHandler} 
+    deleteConfirmHandler={deleteConfirmHandler} >
 
+    </DeleteConfirmation>
+    <Container className='mt-3'>
+    <Row>
+      <Col>
+      <Button variant='primary' onClick={()=>navigate('/addcake')}>Add Cake</Button>
+      </Col>
+    </Row>
     
      <Row xs={1} md={3} className="g-4">
       {
@@ -34,6 +75,8 @@ function AllCakes() {
               <Card.Text>
                Price:  {cake.cost}
               </Card.Text>
+              <Button variant='primary' type="button" onClick={()=>navigate(`/editcake/${cake.id}`)}>Edit</Button>
+              <Button variant='danger' type="button" style={{margin:"10px"}} onClick={()=>openConfirmationModalHandler(cake.id)}>Delete</Button>
             </Card.Body>
           </Card>
         </Col>

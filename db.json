@@ -1,12 +1,22 @@
 {
-
-  "cakes":[
+  "cakes": [
     {
-      "id": 1,
-      "name":"Red Velvet",
-      "cost": 125,
-      "imageUrl":"https://www.foodnetwork.com/content/dam/images/food/fullset/2009/4/5/1/IG1C17_30946_s4x3.jpg"
+      "name": "Black Forest",
+      "cost": "500",
+      "imageUrl": "https://www.fnp.com/images/pr/l/v20221205202745/chocolate-rose-designer-cake-1-kg_1.jpg",
+      "id": 2
+    },
+    {
+      "name": "Chocolate Cake",
+      "cost": "450",
+      "imageUrl": "https://assets.winni.in/product/primary/2022/9/73530.jpeg?dpr=1&w=500",
+      "id": 3
+    },
+    {
+      "name": "PineApple",
+      "cost": "600",
+      "imageUrl": "https://whipped.in/cdn/shop/files/pink-butterfly-cake.png?v=1686848832",
+      "id": 4
     }
   ]
-  
 }
